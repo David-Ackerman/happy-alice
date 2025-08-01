@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "@tanstack/react-router";
-import { CheckSquare, Heart, BarChart3, Settings, Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CheckSquare, Heart, BarChart3, Settings } from "lucide-react";
 
 export function Navigation({ children }: { children: React.ReactNode }) {
   const navItems = [
