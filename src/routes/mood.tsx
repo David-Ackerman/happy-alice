@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Heart, Smile, Meh, Frown, HeartCrack } from "lucide-react";
+import { MOOD_ICONS } from "@/constants/moods";
 import { MoodEntry, addMoodEntry, getTodaysMoodEntry } from "@/lib/database";
-import { toast } from "sonner";
-import { format } from "date-fns";
 import { createFileRoute } from "@tanstack/react-router";
+import { format } from "date-fns";
+import { Heart, Meh } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { twMerge } from "tailwind-merge";
 
 const EMOTIONS = [
   "Feliz",
@@ -22,14 +24,6 @@ const EMOTIONS = [
   "Frustrada",
   "Esperançosa",
   "Sobrecarregada",
-];
-
-const MOOD_ICONS = [
-  { icon: HeartCrack, label: "Deprê", color: "text-destructive" },
-  { icon: Frown, label: "Mal", color: "text-warning" },
-  { icon: Meh, label: "Normal", color: "text-muted-foreground" },
-  { icon: Smile, label: "Bem", color: "text-wellness-green" },
-  { icon: Heart, label: "Incrível", color: "text-success" },
 ];
 
 export const Route = createFileRoute("/mood")({
@@ -147,24 +141,19 @@ export function Mood() {
                   <button
                     key={moodValue}
                     onClick={() => setSelectedMood(moodValue)}
-                    className={`flex flex-1 flex-col items-center p-2 rounded-lg transition-all duration-200 ${
+                    className={twMerge(
+                      "flex flex-1 flex-col items-center p-2 rounded-lg transition-all duration-200 ",
                       isSelected
                         ? "bg-gradient-wellness text-white shadow-wellness"
-                        : "hover:bg-accent"
-                    }`}
+                        : `hover:bg-accent hover:${mood.color}`
+                    )}
                   >
                     <Icon
                       className={`size-6 ${
                         isSelected ? "text-white" : mood.color
                       }`}
                     />
-                    <span
-                      className={`text-xs mt-1 ${
-                        isSelected ? "text-white" : "text-muted-foreground"
-                      }`}
-                    >
-                      {mood.label}
-                    </span>
+                    <span className="text-xs mt-1 ">{mood.label}</span>
                   </button>
                 );
               })}
@@ -183,11 +172,12 @@ export function Mood() {
                   variant={
                     selectedEmotions.includes(emotion) ? "default" : "outline"
                   }
-                  className={`cursor-pointer transition-all duration-200 ${
+                  className={twMerge(
+                    "cursor-pointer transition-all duration-200 ",
                     selectedEmotions.includes(emotion)
-                      ? "bg-wellness-blue text-white shadow-soft"
+                      ? "bg-wellness-rose text-white shadow-soft"
                       : "hover:bg-accent"
-                  }`}
+                  )}
                   onClick={() => handleEmotionToggle(emotion)}
                 >
                   {emotion}

@@ -164,7 +164,7 @@ function Settings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       <div>
         <h2 className="text-2xl font-bold text-foreground">Configurações</h2>
         <p className="text-muted-foreground">
@@ -173,23 +173,23 @@ function Settings() {
       </div>
 
       {/* Daily Reset Settings */}
-      <Card className="shadow-wellness border-wellness-blue/20">
+      <Card className="w-full shadow-wellness border-wellness-blue/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-wellness-orange" />
             Redefinição Diária
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
+        <CardContent>
+          <div className="flex flex-col gap-2 flex-1">
             <label className="text-sm font-medium">Hora de Redefinição</label>
             <Input
               type="time"
               value={resetTime}
               onChange={(e) => setResetTime(e.target.value)}
-              className="border-wellness-blue/30 focus:border-wellness-blue"
+              className="w-[calc(100%-1.5rem)] flex-1 border-wellness-blue/30 focus:border-wellness-blue"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs mt-6 text-muted-foreground">
               As tarefas serão redefinidas automaticamente neste horário todos
               os dias
             </p>

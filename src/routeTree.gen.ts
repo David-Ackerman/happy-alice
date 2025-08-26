@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as MoodRouteImport } from './routes/mood'
+import { Route as AiCompanionRouteImport } from './routes/ai-companion'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -29,6 +30,11 @@ const MoodRoute = MoodRouteImport.update({
   path: '/mood',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiCompanionRoute = AiCompanionRouteImport.update({
+  id: '/ai-companion',
+  path: '/ai-companion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-companion': typeof AiCompanionRoute
   '/mood': typeof MoodRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-companion': typeof AiCompanionRoute
   '/mood': typeof MoodRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-companion': typeof AiCompanionRoute
   '/mood': typeof MoodRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/mood' | '/reports' | '/settings'
+  fullPaths: '/' | '/ai-companion' | '/mood' | '/reports' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/mood' | '/reports' | '/settings'
-  id: '__root__' | '/' | '/mood' | '/reports' | '/settings'
+  to: '/' | '/ai-companion' | '/mood' | '/reports' | '/settings'
+  id: '__root__' | '/' | '/ai-companion' | '/mood' | '/reports' | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiCompanionRoute: typeof AiCompanionRoute
   MoodRoute: typeof MoodRoute
   ReportsRoute: typeof ReportsRoute
   SettingsRoute: typeof SettingsRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoodRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai-companion': {
+      id: '/ai-companion'
+      path: '/ai-companion'
+      fullPath: '/ai-companion'
+      preLoaderRoute: typeof AiCompanionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiCompanionRoute: AiCompanionRoute,
   MoodRoute: MoodRoute,
   ReportsRoute: ReportsRoute,
   SettingsRoute: SettingsRoute,

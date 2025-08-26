@@ -1,4 +1,4 @@
-import { db } from "./database";
+import { db, getRecurrentTasksForToday } from "./database";
 import { format, isAfter, parseISO } from "date-fns";
 
 export const checkAndResetTasks = async (): Promise<boolean> => {
@@ -39,6 +39,25 @@ export const checkAndResetTasks = async (): Promise<boolean> => {
           completed: false,
           completedAt: undefined,
         });
+      }
+
+      // Create today's instance of recurrent tasks if not already present
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+      const recurrentTasks = await getRecurrentTasksForToday();
+      for (const recTask of recurrentTasks) {
+        // Check if a task with same title and today exists
+        const exists = await db.tasks
+          .where({ title: recTask.title, createdAt: todayDate })
+          .first();
+        if (!exists) {
+          await db.tasks.add({
+            ...recTask,
+            id: undefined,
+            createdAt: todayDate,
+            completed: false,
+          });
+        }
       }
 
       // Update last reset time

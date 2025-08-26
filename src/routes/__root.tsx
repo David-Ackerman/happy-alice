@@ -57,7 +57,7 @@ function RootLayout() {
   return (
     <Navigation>
       <main className="flex-1 p-4 md:p-6 pb-20 md:pb-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full md:max-w-4xl mx-auto">
           <Outlet />
           <TanStackRouterDevtools />
           <Toaster />

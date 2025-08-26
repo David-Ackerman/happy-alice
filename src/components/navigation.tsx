@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "@tanstack/react-router";
-import { CheckSquare, Heart, BarChart3, Settings } from "lucide-react";
+import { CheckSquare, Heart, BarChart3, Settings, BotMessageSquare } from "lucide-react";
 
 export function Navigation({ children }: { children: React.ReactNode }) {
   const navItems = [
     { id: "", label: "Tarefas", icon: CheckSquare },
     { id: "mood", label: "Humor", icon: Heart },
     { id: "reports", label: "Relatórios", icon: BarChart3 },
+    { id: "ai-companion", label: "Joy", icon: BotMessageSquare },
     { id: "settings", label: "Configurações", icon: Settings },
   ] as const;
 
@@ -28,7 +29,7 @@ export function Navigation({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="h-dvh max-h-dvh bg-background flex ">
+    <div className="h-dvh max-h-dvh bg-background flex w-full ">
       {/* Desktop Navigation */}
       <nav className="hidden md:flex flex-col space-y-2 w-64 p-4 bg-card border-r border-border">
         <div className="mb-6">
